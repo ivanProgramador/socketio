@@ -16,22 +16,19 @@ app.get("/",(req,res)=>{
     res.render("index");
 });
 
-/*
-Quando cliente faz a primeira requisição esse evento cria um tunel 
-de comunicação entre o servidor eo cliente oque faz a comunicação 
-em tempo real a acontecer.
-O codigo abaixo mostra a função responsavel por criar essa conexão no backend,
-a variavel socket é um objeto que representa o cliente quando um cliente se conecta 
-ele recebe um id unico para que ele seja identificado na conexão e assim possa receber 
-dados especificos para ele.
 
-No caso esse objeto vai vir do front end index.ejs, na tag script tem um referencia ao meu servidor 
-e a esse socket   
-*/ 
 
 io.on("connection", (socket)=>{
-    console.log(socket);
-    console.log(socket.id);
+    socket.on('boasvindas',(data)=>{
+        console.log(data);
+    });
+    
+    //recebendo o evento palavra
+    socket.on("palavra",(data)=>{
+        console.log(data);
+        //repondendo o evento em tempo real / sem carregamento
+        socket.emit("resultado", data + "- guia do programador");
+    });
 });
 
 

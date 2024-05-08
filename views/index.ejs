@@ -6,13 +6,42 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Teste</h1>
-</body>
- <!-- instalando o socket io pela cnd -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+       <!--executanbdo no onImput ele envia e retorna em tempo real nesse caso quanciona a emissão 
+            e a digitação dentro de campo
+        -->
+      <input type="text" name="" id="palavra" oninput="enviar()">
+      
+      <hr>
+      <p id="resultado"></p>
  
- <!--acionando a função que esta no meu backend e criando a conexão-->
+</body>
+ 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+
+ 
  <script>
     var socket = io('http://localhost:3000');
+    socket.emit("boasvindas",{nome:"Ivan Rodrigues"});
+    /*
+     quando eu acionar o onclick o front vai emitir uma evento para o back,
+     esse evento vai mandar conteudo do input para o servidor e vai receber um resposta 
+
+    */
+
+
+    socket.on("resultado",(data)=>{
+       var p = document.getElementById('resultado');
+       p.innerHTML = data;
+
+     });
+
+
+    function enviar(){
+     var input = document.getElementById("palavra");
+     socket.emit("palavra",input.value);
+    }
+   
+
+    
  </script>
 </html>
