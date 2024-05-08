@@ -6,22 +6,35 @@ precisa ser o servidor nativo de node por isso a blioteca http
 esta criando o serviddor ao inves da express
 */
 
-var http = require("http").createServer(app); 
-var io = require("socket.io")(http);
+        var http = require("http").createServer(app); 
+        var io = require("socket.io")(http);
 
 
 app.set("view engine","ejs");
 
-app.get("/",(req,res)=>{
-    res.render("index");
-});
+            app.get("/",(req,res)=>{
+                res.render("index");
+            });
+
 
 
 
 io.on("connection", (socket)=>{
+
+    
+    socket.on("disconnect",()=>{
+
+        console.log('Se desconectou: '+ socket.id);
+
+    })
+
+   
+
     socket.on('boasvindas',(data)=>{
         console.log(data);
     });
+
+
     
     //recebendo o evento palavra
     socket.on("palavra",(data)=>{

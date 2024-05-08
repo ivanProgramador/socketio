@@ -20,8 +20,20 @@
 
  
  <script>
+
     var socket = io('http://localhost:3000');
+
     socket.emit("boasvindas",{nome:"Ivan Rodrigues"});
+
+    // o socket tem um evento que sereve para detectar se o susario ainda esta acessano a pagina 
+    // que o evento disconnect caso o susuario feche apagaina esse evento e disparado para o servidor 
+    // no meu caso ele manda a mensagem avisanddo que o susurio se desconectou e mostra o id dele 
+    socket.on('disconnect',()=>{
+      console.log('Desconectado');
+    })
+
+
+
     /*
      quando eu acionar o onclick o front vai emitir uma evento para o back,
      esse evento vai mandar conteudo do input para o servidor e vai receber um resposta 
